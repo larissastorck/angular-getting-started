@@ -1,18 +1,55 @@
-import { Component } from "@angular/core";
-import { Product } from "../models/product.model";
+import { AfterViewInit, Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from "@angular/core";
+import { Product } from "../../models/product.model";
+import { ProductService } from "../../shared/services/product.service";
+import { StarComponent } from "../../shared/star/star.component";
 
 @Component({
   selector: 'app-product-list',
   templateUrl: './product-list.component.html',
 
 })
-export class ProductListComponent {
+export class ProductListComponent implements OnInit, AfterViewInit {
   pageTitle: string = 'Product List';
   showImage: boolean = false;
   imageWidth = 40;
   imageMargin = 40;
   private _filterList = '';
-  filteredProducts!: Product[];
+  filteredProducts: Product[] = [];
+
+  @ViewChild(StarComponent)
+  starComponent!: StarComponent;
+
+  @ViewChild('filterTitle')
+  filterTitleEl!: ElementRef;
+
+  @ViewChildren(StarComponent)
+  stars!: QueryList<StarComponent>
+
+  constructor(private productService: ProductService) {
+
+  }
+
+
+  ngOnInit(): void {
+    this.productService.getProducts().subscribe({
+      next: (response) => {
+        this.products = response;
+        this.filteredProducts = this.products;
+      },
+      error: (error) => {
+        alert(error)
+      },
+      complete: () => {
+        console.log('completed')
+      }
+    })
+
+  }
+
+  ngAfterViewInit(): void {
+    console.log('filterTitleEl ', this.filterTitleEl.nativeElement.style.color = 'red');
+    console.log('stars ', this.stars);
+  }
 
   get filterList(): string {
     return this._filterList;
@@ -24,26 +61,7 @@ export class ProductListComponent {
   }
 
 
-  products: Product[] = [{
-    "productId": 1,
-    "productName": "Leaf Rake",
-    "productCode": "GDN-0011",
-    "releaseDate": "March 19, 2019",
-    "description": "Leaf rake with 48-inch wooden handle.",
-    "price": 19.95,
-    "starRating": 3.2,
-    "imageUrl": "assets/images/leaf_rake.png"
-  },
-  {
-    "productId": 2,
-    "productName": "Garden Cart",
-    "productCode": "GDN-0023",
-    "releaseDate": "March 18, 2019",
-    "description": "15 gallon capacity rolling garden cart",
-    "price": 32.99,
-    "starRating": 4.2,
-    "imageUrl": "assets/images/garden_cart.png"
-  }];
+  products: Product[] = []
 
   performFilter(filterBy: string) {
     filterBy = filterBy.toLowerCase();
