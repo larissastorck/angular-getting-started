@@ -1,0 +1,146 @@
+<div class="card">
+
+    <div class="card-header">
+  
+      {{pageTitle}}
+  
+    </div>
+  
+  
+  
+    <div class="card-body">
+  
+      <form novalidate [formGroup]="productForm">
+  
+  
+  
+        <div class="form-group row mb-2">
+  
+          <label class="col-md-2 col-form-label" for="productNameId">Product Name</label>
+  
+          <div class="col-md-8">
+  
+            <input formControlName="productName" class="form-control" id="productNameId" type="text"
+              placeholder="Name (required)"
+              [ngClass]="{'is-invalid': productName?.invalid && (productName?.dirty || productName?.touched)}" />
+  
+            <span class="invalid-feedback" *ngIf="productName?.errors">
+              Name is required
+            </span>
+  
+          </div>
+  
+        </div>
+  
+  
+  
+        <div class="form-group row mb-2">
+          <label class="col-md-2 col-form-label" for="productCodeId">Product Code</label>
+          <div class="col-md-8">
+            <input formControlName="productCode" class="form-control" id="productCodeId" type="text"
+              placeholder="Code (required)" />
+            <span class="invalid-feedback">
+            </span>
+  
+          </div>
+  
+        </div>
+  
+  
+  
+        <div class="form-group row mb-2">
+  
+          <label class="col-md-2 col-form-label" for="starRatingId">Star Rating (1-5)</label>
+  
+          <div class="col-md-8">
+  
+            <input formControlName="starRating" class="form-control" id="starRatingId" type="text"
+              placeholder="Rating (1-5)"
+              [ngClass]="{'is-invalid': starRating?.invalid && (starRating?.dirty || starRating?.touched)}">
+  
+            <span class="invalid-feedback" *ngIf="starRating?.errors">
+              Numbers between 1 and 5 are allowed
+            </span>
+          </div>
+  
+        </div>
+  
+  
+  
+  
+  
+        <div class="form-group row mb-2">
+  
+          <label class="col-md-2 col-form-label" for="descriptionId">Description</label>
+  
+  
+  
+          <div class="col-md-8">
+  
+            <textarea formControlName="description" class="form-control" id="descriptionId" placeholder="Description"
+              rows=3></textarea>
+  
+            <span class="invalid-feedback">
+  
+  
+  
+            </span>
+  
+          </div>
+  
+        </div>
+  
+  
+  
+        <div class="form-group row mb-2">
+  
+          <div class="offset-md-2 col-md-4">
+  
+            <button class="btn btn-primary mr-3" style="width:80px;" type="submit" (click)="save()">
+  
+              Save
+  
+            </button>
+  
+            <button class="btn btn-outline-secondary mr-3" style="width:80px;" type="button" title="Cancel your edits"
+              [routerLink]="['/products']">
+  
+              Cancel
+  
+            </button>
+  
+            <!-- <button class="btn btn-outline-warning" style="width:80px" type="button" title="Delete this product"
+              (click)="deleteProduct()">
+  
+              Delete
+  
+            </button> -->
+  
+          </div>
+  
+        </div>
+        <p> {{this.errMessage}} </p>
+  
+      </form>
+  
+    </div>
+  
+  
+  
+  
+    <br>
+  
+    <br>
+  
+    values: {{productForm.value | json }}
+  
+    <br>
+  
+    errors: {{productForm.get('productName')?.errors| json }}
+  
+    <br>
+  
+    dirty: {{ productForm.dirty }}
+  
+  </div>
+  

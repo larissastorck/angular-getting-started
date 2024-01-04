@@ -3,10 +3,12 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { registerLocaleData } from '@angular/common';
 
+import { HttpClientModule } from '@angular/common/http';
 import localePtBr from '@angular/common/locales/pt';
 import { FormsModule } from '@angular/forms';
-import { ProductListComponent } from 'src/app/components/product-list.component';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { WelcomeComponent } from './components/welcome/welcome.component';
 import { ConvertToSpacesPipe } from './shared/pipes/covert-to-spaces.pipe';
 import { StarComponent } from './shared/star/star.component';
 
@@ -15,13 +17,16 @@ registerLocaleData(localePtBr)
 @NgModule({
   declarations: [
     AppComponent,
-    ProductListComponent
+
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ConvertToSpacesPipe,
-    StarComponent
+    StarComponent,
+    HttpClientModule,
+    AppRoutingModule,
+    WelcomeComponent,
   ],
   providers: [{
     provide: LOCALE_ID, useValue: 'pt-Br'
