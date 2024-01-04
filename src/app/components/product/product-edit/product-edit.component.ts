@@ -7,8 +7,7 @@ import { NumberValidators } from 'src/app/shared/validators/number.validator';
 
 @Component({
   selector: 'app-product-edit',
-  templateUrl: './product-edit.component.html',
-  styleUrls: ['./product-edit.component.scss']
+  templateUrl: './product-edit.component.html'
 })
 export class ProductEditComponent implements OnInit {
 
